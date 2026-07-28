@@ -3,125 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <title>Home-夏末の随风</title>
+    <!-- 引入更优雅的字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;500&display=swap" rel="stylesheet">
     <link href="https://pic.imgdb.cn/item/63835b9e16f2c2beb1049a47.gif" rel="icon" sizes="32x32"/>
     <link href="https://pic.imgdb.cn/item/63835b9e16f2c2beb1049a47.gif" rel="icon" sizes="192x192"/>
-    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        html, body, main{
+        :root {
+            --primary-color: #20b57d;
+            --secondary-color: #258ec5;
+            --accent-color: #ff6b6b;
+            --text-color: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        html, body {
             height: 100%;
-        }
-
-        body{
             margin: 0;
-            user-select: none;
-            font: lighter 16px "微软雅黑";
+            padding: 0;
+            font-family: 'Noto Sans SC', '微软雅黑', sans-serif;
+            color: var(--text-color);
+            overflow: hidden;
         }
-        body:before{
-            content: '';
-            z-index: -1;
-            width: 3000px;
-            height: 3000px;
+
+        /* 动态渐变背景 */
+        body {
+            background: linear-gradient(-45deg, #20b57d, #258ec5, #0f2027, #203a43);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        main.container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .content {
+            text-align: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            max-width: 400px;
+            width: 100%;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--text-color);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .logo img:hover {
+            transform: scale(1.1) rotate(360deg);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+
+        .links {
+            margin-top: 40px;
+        }
+
+        .links a {
             display: block;
-            position: fixed;
-            top: calc(50% - 1500px);
-            left: calc(50% - 1500px);
-            animation: bg-rotate 20s infinite linear;
-            background: linear-gradient(45deg, #20b57d 40%, #258ec5 60%);
-        }
-
-        @keyframes bg-rotate {
-            0%{ transform: rotate(0) }
-            100%{ transform: rotate(360deg) }
-        }
-
-        a{
+            padding: 15px 20px;
+            margin: 10px 0;
+            color: var(--text-color);
             text-decoration: none;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
         }
 
-        main{
-            display: table;
-            margin: 0 auto;
+        .links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
         }
 
-        .content{
-            padding-top: 50px;
-            padding-bottom: 70px;
-            text-align: center;
-            display: table-cell;
-            vertical-align: middle;
+        .links a:hover::before {
+            left: 100%;
         }
 
-        .logo{
-            margin-bottom: 50px;
-        }
-        .logo img{
-            height: auto;
-            max-width: 100px;
-            border-radius: 100%;
-            border: 3px solid #fff;
-            transition: transform 0.3s;
-        }
-        .logo img:hover{
-            transform: scale(1.1, 1.1) rotate(1turn);
+        .links a:hover {
+            background: var(--text-color);
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-color: var(--text-color);
         }
 
-        .links{
-            max-width: 300px;
-        }
-        .links a{
-            color: #fff;
-            display: block;
-            min-width: 80px;
-            padding: 1em 2em;
-            text-align: center;
-            margin-bottom: 1em;
-            border-radius: 100px;
-            border: #fff 1px solid;
-            transition: background 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
-        }
-        .links a:hover{
-            color: #258ec5;
-            background: #fff;
-            transform: scale(1.1, 1.1);
-        }
-        .links a:active{
-            opacity: 0.7;
-            transform: scale(0.9, 0.9);
-        }
-        .links a:last-child{
-            margin-bottom: 0;
+        .links a:active {
+            transform: translateY(-1px);
         }
 
-        footer{
+        footer {
+            position: fixed;
+            bottom: 20px;
             left: 0;
             right: 0;
-            bottom: 0;
-            color: #fff;
-            position: fixed;
             text-align: center;
+            font-size: 0.9em;
+            opacity: 0.8;
         }
-        footer a{
-            color: inherit;
+
+        footer a {
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--text-color);
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 30px 20px;
+            }
+            .logo img {
+                width: 100px;
+                height: 100px;
+            }
         }
     </style>
 </head>
 <body>
-<main class="container">
-    <div class="content">
-        <div class="logo">
-            <img src="https://pic.imgdb.cn/item/63835b9e16f2c2beb1049a47.gif" title="夏末随风的个人首页"/>
+    <main class="container">
+        <div class="content">
+            <div class="logo">
+                <img src="https://pic.imgdb.cn/item/63835b9e16f2c2beb1049a47.gif" title="夏末随风的个人首页" alt="Avatar">
+            </div>
+            <div class="links">
+                <a href="https://awslnotbad.cn/" target="_blank">✨ 我的博客</a>
+                <a href="https://yun.awslnotbad.cn" target="_blank">☁️ 个人云盘</a>
+                <a href="https://space.bilibili.com/336650235" target="_blank">📺 Bilibili空间</a>
+                <a href="https://steamcommunity.com/profiles/76561198882696951/" target="_blank">🎮 Steam主页</a>
+                <a href="https://whenlv6.awslnotbad.cn/" target="_blank">🚀 B站等级计算器</a>
+            </div>
         </div>
-        <div class="links">
-            <a href="https://awslnotbad.cn/">博客</a>
-            <a href="https://yun.awslnotbad.cn" target="_blank">云盘</a>
-            <a href="https://space.bilibili.com/336650235" target="_blank">B站</a>
-             <a href="https://steamcommunity.com/profiles/76561198882696951/" target="_blank">Steam</a>
-            <a href="https://whenlv6.awslnotbad.cn/" target="_blank">B站等级计算器</a>
-        </div>
-    </div>
-</main>
-<footer>
-    <p>© 2020-2026 By <a href="https://awslnotbad.cn/" target="_blank">夏末随风</a>.</p>
-</footer>
+    </main>
+    <footer>
+        <p>© 2020-2026 By <a href="https://awslnotbad.cn/" target="_blank">夏末随风</a>.</p>
+    </footer>
 </body>
 </html>
