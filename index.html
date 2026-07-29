@@ -1,132 +1,193 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <title>Home-夏末の随风</title>
-    <!-- 引入更优雅的字体 -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;500&display=swap" rel="stylesheet">
     <link href="https://pic.imgdb.cn/item/63835b9e16f2c2beb1049a47.gif" rel="icon" sizes="32x32"/>
     <link href="https://pic.imgdb.cn/item/63835b9e16f2c2beb1049a47.gif" rel="icon" sizes="192x192"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <style>
         :root {
-            --primary-color: #20b57d;
-            --secondary-color: #258ec5;
-            --accent-color: #ff6b6b;
-            --text-color: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
+            --primary: #ff69b4;
+            --secondary: #d63384;
+            --accent: #8e44ad;
+            --text: #2d3436;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --shadow: rgba(255, 105, 180, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         html, body {
             height: 100%;
-            margin: 0;
-            padding: 0;
-            font-family: 'Noto Sans SC', '微软雅黑', sans-serif;
-            color: var(--text-color);
+            overflow: hidden;
+            font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
+            color: var(--text);
+        }
+
+        /* 樱花飘落动画 */
+        .sakura-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
             overflow: hidden;
         }
 
-        /* 动态渐变背景 */
-        body {
-            background: linear-gradient(-45deg, #20b57d, #258ec5, #0f2027, #203a43);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+        .sakura {
+            position: absolute;
+            top: -10%;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle, #ffb7c5 0%, #ff69b4 100%);
+            border-radius: 100% 0 100% 0;
+            opacity: 0.8;
+            animation: fall linear infinite;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .sakura:nth-child(odd) {
+            background: radial-gradient(circle, #ffc0cb 0%, #ff69b4 100%);
         }
 
-        main.container {
+        @keyframes fall {
+            0% {
+                transform: translateY(-10%) rotate(0deg) translateX(0);
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            box-sizing: border-box;
         }
 
-        .content {
-            text-align: center;
+        .card {
             background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
             border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 50px 40px;
             max-width: 400px;
             width: 100%;
-            animation: fadeIn 1s ease-out;
+            text-align: center;
+            box-shadow: 0 8px 32px var(--shadow);
+            animation: cardEnter 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes cardEnter {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .logo img {
-            width: 120px;
-            height: 120px;
+        .avatar {
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            border: 3px solid var(--text-color);
+            border: 4px solid white;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 20px var(--shadow);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .logo img:hover {
-            transform: scale(1.1) rotate(360deg);
-            border-color: var(--accent-color);
-            box-shadow: 0 0 20px var(--accent-color);
+        .avatar:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+
+        .title {
+            font-size: 1.6em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--secondary);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 0.9em;
+            opacity: 0.7;
+            margin-bottom: 35px;
+            color: var(--text);
         }
 
         .links {
-            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .links a {
-            display: block;
-            padding: 15px 20px;
-            margin: 10px 0;
-            color: var(--text-color);
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 24px;
+            color: var(--text);
             text-decoration: none;
             border-radius: 50px;
             border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.3);
             font-weight: 500;
+            font-size: 0.95em;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
 
-        .links a::before {
+        .link-btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
         }
 
-        .links a:hover::before {
+        .link-btn:hover::before {
             left: 100%;
         }
 
-        .links a:hover {
-            background: var(--text-color);
-            color: var(--secondary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border-color: var(--text-color);
+        .link-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 20px var(--shadow);
+            border-color: var(--primary);
+            color: var(--secondary);
         }
 
-        .links a:active {
-            transform: translateY(-1px);
+        .link-btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        .link-btn .icon {
+            font-size: 1.2em;
         }
 
         footer {
@@ -135,50 +196,105 @@
             left: 0;
             right: 0;
             text-align: center;
-            font-size: 0.9em;
-            opacity: 0.8;
+            font-size: 0.8em;
+            opacity: 0.6;
+            z-index: 1;
+            color: var(--text);
         }
 
         footer a {
-            color: var(--text-color);
+            color: var(--secondary);
             text-decoration: none;
-            border-bottom: 1px dashed var(--text-color);
-            transition: color 0.3s;
+            border-bottom: 1px dashed var(--secondary);
+            transition: all 0.3s;
         }
 
         footer a:hover {
-            color: var(--accent-color);
-            border-color: var(--accent-color);
+            color: var(--primary);
+            border-color: var(--primary);
         }
 
         @media (max-width: 480px) {
-            .content {
-                padding: 30px 20px;
+            .card {
+                padding: 35px 25px;
             }
-            .logo img {
-                width: 100px;
-                height: 100px;
+            .avatar {
+                width: 90px;
+                height: 90px;
+            }
+            .title {
+                font-size: 1.4em;
+            }
+            .link-btn {
+                padding: 14px 20px;
+                font-size: 0.9em;
             }
         }
     </style>
 </head>
 <body>
-    <main class="container">
-        <div class="content">
+    <!-- 樱花飘落容器 -->
+    <div class="sakura-container" id="sakuraContainer"></div>
+
+    <main>
+        <div class="card">
             <div class="logo">
-                <img src="https://pic.imgdb.cn/item/63835b9e16f2c2beb1049a47.gif" title="夏末随风的个人首页" alt="Avatar">
+                <img class="avatar" src="https://pic.imgdb.cn/item/63835b9e16f2c2beb1049a47.gif" title="夏末随风的个人首页" alt="Avatar"/>
             </div>
+            <h1 class="title">夏末の随风</h1>
+            <p class="subtitle">记录生活 · 分享技术 · 探索未知</p>
             <div class="links">
-                <a href="https://awslnotbad.cn/" target="_blank">✨ 我的博客</a>
-                <a href="https://yun.awslnotbad.cn" target="_blank">☁️ 个人云盘</a>
-                <a href="https://space.bilibili.com/336650235" target="_blank">📺 Bilibili空间</a>
-                <a href="https://steamcommunity.com/profiles/76561198882696951/" target="_blank">🎮 Steam主页</a>
-                <a href="https://whenlv6.awslnotbad.cn/" target="_blank">🚀 B站等级计算器</a>
+                <a href="https://awslnotbad.cn/" target="_blank" class="link-btn">
+                    <span class="icon">✨</span> 我的博客
+                </a>
+                <a href="https://yun.awslnotbad.cn" target="_blank" class="link-btn">
+                    <span class="icon">☁️</span> 个人云盘
+                </a>
+                <a href="https://space.bilibili.com/336650235" target="_blank" class="link-btn">
+                    <span class="icon">📺</span> Bilibili空间
+                </a>
+                <a href="https://steamcommunity.com/profiles/76561198882696951/" target="_blank" class="link-btn">
+                    <span class="icon">🎮</span> Steam主页
+                </a>
+                <a href="https://whenlv6.awslnotbad.cn/" target="_blank" class="link-btn">
+                    <span class="icon">🚀</span> B站等级计算器
+                </a>
             </div>
         </div>
     </main>
+
     <footer>
         <p>© 2020-2026 By <a href="https://awslnotbad.cn/" target="_blank">夏末随风</a>.</p>
     </footer>
+
+    <script>
+        // 生成樱花花瓣
+        function createSakura() {
+            const container = document.getElementById('sakuraContainer');
+            const sakura = document.createElement('div');
+            sakura.className = 'sakura';
+            
+            // 随机位置、大小、动画时长
+            sakura.style.left = Math.random() * 100 + '%';
+            sakura.style.width = sakura.style.height = (Math.random() * 10 + 10) + 'px';
+            sakura.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            sakura.style.animationDelay = Math.random() * 5 + 's';
+            
+            container.appendChild(sakura);
+            
+            // 动画结束后移除
+            setTimeout(() => {
+                sakura.remove();
+            }, 10000);
+        }
+
+        // 持续生成樱花
+        setInterval(createSakura, 300);
+        
+        // 初始生成一些樱花
+        for (let i = 0; i < 15; i++) {
+            createSakura();
+        }
+    </script>
 </body>
 </html>
